@@ -1,0 +1,3 @@
+[] Make it so if you reference a sprite from a spritesheet outside
+   of the index range of sprites show a not found image instead of crashing
+[] Refactor getSprite sheet to use a subfolder "spritesheets" in AssetPool

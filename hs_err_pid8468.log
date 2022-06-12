@@ -1,0 +1,32 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffe3106d1cc, pid=8468, tid=25296
+#
+# JRE version: OpenJDK Runtime Environment Corretto-11.0.14.10.1 (11.0.14.1+10) (build 11.0.14.1+10-LTS)
+# Java VM: OpenJDK 64-Bit Server VM Corretto-11.0.14.10.1 (11.0.14.1+10-LTS, mixed mode, tiered, compressed oops, g1 gc, windows-amd64)
+# Problematic frame:
+# C  [igxelpicd64.dll+0x30d1cc]
+#
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   https://github.com/corretto/corretto-11/issues/
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=127.0.0.1:64124 -Dfile.encoding=windows-1252 -Duser.country=US -Duser.language=en -Duser.variant -ea Main java.library.path=libs
+
+Host: 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz, 16 cores, 15G,  Windows 11 , 64 bit Build 22000 (10.0.22000.675)
+Time: Wed Jun  8 23:14:22 2022 Eastern Daylight Time elapsed time: 3158.165870 seconds (0d 0h 52m 38s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001ee1e067800):  JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_native, id=25296, stack(0x000000b676000000,0x000000b676100000)]
+
+Stack: [0x000000b676000000,0x000000b676100000],  sp=0x000000b6760fe610,  free space=1017k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [igxelpicd64.dll+0x30d1cc]
