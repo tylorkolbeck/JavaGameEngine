@@ -5,25 +5,29 @@ import imgui.ImGui;
 import imgui.ImVec2;
 import jade.Prefabs;
 import jade.camera.Camera;
-import jade.component.*;
+import jade.component.GridLines;
+import jade.component.MouseControls;
+import jade.component.Sprite;
+import jade.component.Spritesheet;
 import jade.gameObject.GameObject;
 import jade.scene.Scene;
 import jade.transform.Transform;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
+import util.Settings;
 import window.eventListeners.MouseListener;
 
 public class LevelEditorScene extends Scene {
     private GameObject obj1;
     private Spritesheet sprites;
 
-    MouseControls mouseControls = new MouseControls();
+    GameObject levelEditorComponents = new GameObject("LevelEditor", new Transform(new Vector2f()), 0);
 
     public LevelEditorScene() {
     }
 
     @Override
     public void init() {
+        levelEditorComponents.addComponent(new MouseControls()).addComponent(new GridLines());
         loadResources();
         sprites = AssetPool.getSpriteSheet("assets/images/spritesheets/decorationsAndBlocks.png");
 
@@ -38,21 +42,23 @@ public class LevelEditorScene extends Scene {
 
         // START Add all game components START
         // =========
-        obj1 = new GameObject("Obj 1", new Transform(new Vector2f(100, 100), new Vector2f(100, 100)), 0)
-                .addComponent(new SpriteRenderer().setColor(new Vector4f(0, 1, 1, 1)))
-                .addComponent(new RigidBody());
-        this.addGameObjectToScene(obj1);
-
-        GameObject obj2 = new GameObject("Obj 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 0)
-            .addComponent(
-                    new SpriteRenderer().setSprite(
-                            new Sprite().setTexture(
-                                    AssetPool.getTexture("assets/textures/test/testImage.png"))));
-
-        this.addGameObjectToScene(obj2);
+//        obj1 = new GameObject("Obj 1", new Transform(new Vector2f(100, 100), new Vector2f(100, 100)), 0)
+//                .addComponent(new SpriteRenderer().setColor(new Vector4f(0, 1, 1, 1)))
+//                .addComponent(new RigidBody());
+//        this.addGameObjectToScene(obj1);
+//
+//        GameObject obj2 = new GameObject("Obj 2", new Transform(new Vector2f(400, 100), new Vector2f(256, 256)), 0)
+//            .addComponent(
+//                    new SpriteRenderer().setSprite(
+//                            new Sprite().setTexture(
+//                                    AssetPool.getTexture("assets/textures/test/testImage.png"))));
+//
+//        this.addGameObjectToScene(obj2);
 
         // END Add all game components END
         // =========
+
+
 
     }
 
@@ -62,12 +68,14 @@ public class LevelEditorScene extends Scene {
         AssetPool.getTexture("assets/textures/test/testImage.png");
     }
 
+    float t = 0.0f;
+
     @Override
     public void update(float dt) {
         this.camera().adjustProjection();
         MouseListener.getOrhoX();
-//        System.out.println("FPS: " + ((1.0f / dt)));
-        mouseControls.update(dt);
+        System.out.println("FPS: " + ((1.0f / dt)));
+        levelEditorComponents.update(dt);
         for(GameObject go: this.gameObjects) {
             go.update(dt);
         }
@@ -95,9 +103,9 @@ public class LevelEditorScene extends Scene {
             int id = sprite.getTexId();
 
             ImGui.pushID(i);
-            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[0].x, texCoords[0].y, texCoords[2].x, texCoords[2].y )) {
-                GameObject object = Prefabs.generateSpriteObjec(sprite, spriteWidth, spriteHeight);
-                mouseControls.pickupObject(object);
+            if (ImGui.imageButton(id, spriteWidth, spriteHeight, texCoords[2].x, texCoords[0].y, texCoords[0].x, texCoords[2].y )) {
+                GameObject object = Prefabs.generateSpriteObjec(sprite, Settings.GRID_WIDTH, Settings.GRID_HEIGHT);
+                levelEditorComponents.getComponent(MouseControls.class).pickupObject(object);
             }
             ImGui.popID();
 

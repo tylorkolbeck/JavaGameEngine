@@ -8,6 +8,7 @@ import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL32;
+import renderer.debug.DebugDraw;
 import util.Time;
 import window.eventListeners.KeyListener;
 import window.eventListeners.MouseListener;
@@ -136,12 +137,16 @@ public class Window {
         while (!glfwWindowShouldClose(glfwWindow)) {
             glfwPollEvents();
 
+
+            DebugDraw.beginFrame();
             // Clear the buffer
             glClearColor(this.backgroundColor.x,this.backgroundColor.y, this.backgroundColor.z, this.backgroundColor.w );
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Call the update function on the current scene
             if (dt >= 0) {
+                // Drawing lines first will make them behind everything else
+                DebugDraw.draw();
                 if (Window.sceneManager.getScene() != null) {
                     Window.sceneManager.getScene().update(dt);
                 }

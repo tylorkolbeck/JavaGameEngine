@@ -14,20 +14,8 @@ public class SpriteRenderer extends Component {
     private transient boolean isDirty = true;
 
     public SpriteRenderer() {
-        this.init(new Vector4f(1.0f,0.0f, 1.0f, 1.0f));
+        this.init(new Vector4f(1.0f,1.0f, 1.0f, 1.0f));
     }
-
-//    public SpriteRenderer(Vector4f color) {
-//        this.init(color);
-//        this.sprite = new Sprite(null);
-//        this.isDirty = true;
-//    }
-//
-//    public SpriteRenderer(Sprite sprite) {
-//        this.sprite = sprite;
-//        this.color = new Vector4f(1.0f,1.0f,1.0f,1.0f);
-//        this.isDirty = true;
-//    }
 
     public void init(Vector4f color) {
         this.color = color;

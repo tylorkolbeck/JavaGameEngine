@@ -25,7 +25,7 @@ public class Configuration {
      *
      * Windows default background color
      */
-    private Vector4f backgroundColor = new Vector4f(0.05f, 0.05f, 0.05f, 1.0f);
+    private Vector4f backgroundColor = new Vector4f(0.08f, 0.08f, 0.08f, 1.0f);
 
 
     public Vector4f getBackgroundColor() {
